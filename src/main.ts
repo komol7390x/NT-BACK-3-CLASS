@@ -50,4 +50,12 @@ const array=(arr:number[]):number[]=>{
 }
 
 const result6=array([1,2,3,4,5,6,7])
-console.log(result6);
+// -------------------------------------------------------------------
+// const statusObj=(obj:object):boolean=>{
+
+// }
+// type Status{
+//     ACTIVE,
+//     INACTIVE 
+// }
+// const result7=statusObj(Sta)
