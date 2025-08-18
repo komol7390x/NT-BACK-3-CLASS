@@ -4,7 +4,23 @@
     "start": "node --watch src/main.js"
   },
   "dependencies": {
-    "dotenv": "^17.2.1",
-    "telegraf": "^4.16.3"
-  }
+    "tsx": "^4.20.4",
+    "typescript": "^5.9.2"
+  },
+  "name": "nt-back-3-class",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/komol7390x/NT-BACK-3-CLASS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/komol7390x/NT-BACK-3-CLASS/issues"
+  },
+  "homepage": "https://github.com/komol7390x/NT-BACK-3-CLASS#readme",
+  "description": ""
 }
