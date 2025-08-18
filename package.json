@@ -1,0 +1,29 @@
+{
+  "devDependencies": {
+    "tsx": "^4.20.4",
+    "typescript": "^5.9.2"
+  },
+  "name": "nt-back-3-class",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "esbuild": "^0.25.9",
+    "get-tsconfig": "^4.10.1",
+    "resolve-pkg-maps": "^1.0.0"
+  },
+  "scripts": {
+    "start": "npx tsx watch src/main.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/komol7390x/NT-BACK-3-CLASS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/komol7390x/NT-BACK-3-CLASS/issues"
+  },
+  "homepage": "https://github.com/komol7390x/NT-BACK-3-CLASS#readme",
+  "description": ""
+}
