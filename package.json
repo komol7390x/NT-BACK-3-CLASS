@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "start": "npx tsx watch src/main.js"
+    "start": "npx tsx watch src/main.ts"
   },
   "dependencies": {
     "express": "^5.1.0",
@@ -22,5 +22,8 @@
     "url": "https://github.com/komol7390x/NT-BACK-3-CLASS/issues"
   },
   "homepage": "https://github.com/komol7390x/NT-BACK-3-CLASS#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^5.0.3"
+  }
 }
