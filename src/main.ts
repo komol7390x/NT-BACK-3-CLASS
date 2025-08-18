@@ -1,4 +1,4 @@
-import express,{Request,Response,NextFunction} from 'express'
+import express from 'express'
 import Router from './routers/user.route'
 
 const server=express()
