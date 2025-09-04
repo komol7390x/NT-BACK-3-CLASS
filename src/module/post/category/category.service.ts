@@ -14,13 +14,18 @@ export class CategoryService {
   async create(createDto: CreateCategoryDto) {
     const { name, parent_id } = createDto
     const existName = await this.categoryModel.findOne({ where: { name } })
+
     if (existName) {
       throw new ConflictException(`this name => ${name} already exist`)
     }
-    const existId = await this.categoryModel.findOne({ where: { parent_id } })
-    if (!existId) {
-      throw new NotFoundException(`not found this id => ${parent_id} on Category`)
+
+    if (parent_id) {
+      const existId = await this.categoryModel.findOne({ where: { id:parent_id } })
+      if (!existId) {
+        throw new NotFoundException(`not found this id => ${parent_id} on Category`)
+      }
     }
+
     const result = await this.categoryModel.save(createDto)
     return successRes(result, 201)
   }
@@ -49,26 +54,26 @@ export class CategoryService {
       }
     }
     if (parent_id) {
-      const existId = await this.categoryModel.findOne({ where: { parent_id } })
+      const existId = await this.categoryModel.findOne({ where: { id:parent_id } })
       if (!existId) {
         throw new NotFoundException(`not found this id => ${parent_id} on Category`)
       }
     }
-    const update=await this.categoryModel.update(updateDto,{id})
-    if(update.affected){
+    const update = await this.categoryModel.update(updateDto, { id })
+    if (update.affected) {
       throw new NotFoundException(`not found this id => ${id} on Product`)
     }
     const result = await this.categoryModel.findOne({ where: { id } })
-    if(!result){
+    if (!result) {
       throw new NotFoundException(`not found this id => ${id} on Product`)
     }
     return successRes(result)
   }
 
-    // ===================================== REMOVE =====================================
+  // ===================================== REMOVE =====================================
   async remove(id: number) {
-    const result=await this.categoryModel.delete({id})
-    if(result.affected){
+    const result = await this.categoryModel.delete({ id })
+    if (result.affected) {
       throw new NotFoundException(`not found this id => ${id} on Category`)
     }
     successRes(result)

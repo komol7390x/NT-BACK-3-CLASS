@@ -15,11 +15,12 @@ export class ProductService {
   // ===================================== CREATE =====================================
   async create(createDto: CreateProductDto) {
     const { category_id } = createDto
+    
     const exist = await this.categoryModel.findOne({ where: {id:category_id} })
     if (!exist) {
       throw new NotFoundException(`not found this id => ${category_id} on Category`)
-    }
-    const result = await this.productModel.save(createDto)
+    }    
+    const result = await this.productModel.save(createDto)    
     return successRes(result, 201)
   }
 
