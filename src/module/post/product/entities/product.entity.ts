@@ -13,8 +13,8 @@ export class Product {
         price:number
 
         @Column({type:'int'})
-        product_id:number
+        category_id:number
 
         @ManyToMany(()=>Category,(category)=>category.id)
-        product:Category[]
+        categorys:Category[]
 }

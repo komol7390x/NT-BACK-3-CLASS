@@ -18,6 +18,6 @@ export class Category {
     @OneToMany(()=>Category,(category)=>category.parant_id)
     parents:Category[]
 
-    @OneToMany(()=>Product,(product)=>product.product_id)
+    @OneToMany(()=>Product,(product)=>product.category_id)
     products:Product[]
 }
