@@ -18,7 +18,9 @@ import { AppService } from './database/database';
     autoLoadEntities:true,
     entities:[]
   }),
-  ProductModule, CategoryModule, AdminModule],
+  ProductModule,
+   CategoryModule,
+    AdminModule],
   providers:[AppService]
 },
 )
