@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Category } from "../../category/entities/category.entity";
 
 @Entity('product')
 export class Product {
@@ -13,4 +14,7 @@ export class Product {
 
         @Column({type:'int'})
         product_id:number
+
+        @ManyToMany(()=>Category,(category)=>category.id)
+        product:Category[]
 }
