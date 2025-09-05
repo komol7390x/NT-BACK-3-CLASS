@@ -1,20 +1,15 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Category } from "../../category/entities/category.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Category } from '../../category/entities/category.entity';
+import { BaseEntity } from 'src/interface/entity-interface';
 
 @Entity('product')
-export class Product {
-        @PrimaryGeneratedColumn()
-        id:number
-    
-        @Column({type:'varchar',unique:true})
-        name:string
-    
-        @Column({type:'decimal'})
-        price:number
+export class Product extends BaseEntity {
+  @Column({ type: 'varchar', unique: true })
+  name: string;
 
-        @Column({type:'int'})
-        category_id:number
+  @Column({ type: 'decimal' })
+  price: number;
 
-        @ManyToMany(()=>Category,(category)=>category.id)
-        categorys:Category[]
+  @ManyToOne(() => Category, (category) => category.products)
+  category: Category;
 }

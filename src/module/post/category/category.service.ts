@@ -25,7 +25,6 @@ export class CategoryService {
         throw new NotFoundException(`not found this id => ${parent_id} on Category`)
       }
     }
-    // console.log(createDto);
     
     const result = await this.categoryModel.save(createDto)
     return successRes(result, 201)
