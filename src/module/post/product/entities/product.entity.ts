@@ -10,6 +10,10 @@ export class Product extends BaseEntity {
   @Column({ type: 'decimal' })
   price: number;
 
-  @ManyToOne(() => Category, (category) => category.products)
+  @ManyToOne(() => Category, (category) => category.products, {
+    // cascade: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   category: Category;
 }

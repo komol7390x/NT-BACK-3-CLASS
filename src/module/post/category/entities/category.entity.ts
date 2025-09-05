@@ -15,12 +15,18 @@ export class Category extends BaseEntity {
 
   @ManyToOne(() => Category, (category) => category.children, {
     nullable: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   parent?: Category;
 
-  @OneToMany(() => Category, (category) => category.parent)
+  @OneToMany(() => Category, (category) => category.parent, {
+    cascade: true,
+  })
   children: Category[];
 
-  @OneToMany(() => Product, (product) => product.category)
+  @OneToMany(() => Product, (product) => product.category, {
+    cascade: true,
+  })
   products: Product[];
 }
