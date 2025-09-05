@@ -86,10 +86,12 @@ export class ProductService {
 
   // ===================================== REMOVE =====================================
   async remove(id: number) {
-    const result = await this.productModel.delete({ id });
-    if (result.affected) {
+    const result = await this.productModel.delete({ id }); 
+    console.log(result);
+    
+    if (!result.affected || result.affected == 0) {
       throw new NotFoundException(`not found this id => ${id} on Product`);
     }
-    successRes(result);
+    return successRes({});
   }
 }

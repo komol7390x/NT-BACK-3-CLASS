@@ -15,7 +15,7 @@ export class CategoryService {
   constructor(
     @InjectRepository(Category)
     private readonly categoryModel: Repository<Category>,
-  ) { }
+  ) {}
 
   // ===================================== CREATE =====================================
   async create(createDto: CreateCategoryDto) {
@@ -77,48 +77,59 @@ export class CategoryService {
   // ===================================== UPDATE =====================================
   async update(id: number, updateDto: UpdateCategoryDto) {
     const { name, parent_id } = updateDto;
+
+    // 1. Name uniqueness tekshirish
     if (name) {
       const existName = await this.categoryModel.findOne({ where: { name } });
-      if (existName) {
-        throw new ConflictException(`this name => ${name} already exist`);
-      }
-    }
-    if (parent_id) {
-      const existId = await this.categoryModel.findOne({
-        where: { id: parent_id },
-      });
-      if (!existId) {
-        throw new NotFoundException(
-          `not found this id => ${parent_id} on Category`,
+      if (existName && existName.id !== id) {
+        throw new ConflictException(
+          `Category with name "${name}" already exists`,
         );
       }
     }
-    const update = await this.categoryModel.update(updateDto, { id });
-    if (update.affected) {
-      throw new NotFoundException(`not found this id => ${id} on Product`);
+
+    // 2. Parent category tekshirish
+    let parentCategory: Category | undefined = undefined;
+    if (parent_id) {
+      const existParent = await this.categoryModel.findOne({
+        where: { id: parent_id },
+      });
+      if (!existParent) {
+        throw new NotFoundException(
+          `Parent category with id ${parent_id} not found`,
+        );
+      }
+      parentCategory = existParent;
     }
-    const result = await this.categoryModel.findOne({
-      where: { id },
-      relations: { parent: true, products: true },
+
+    // 3. preload + save ishlatamiz (relationlar bilan ishlaydi)
+    const categoryToUpdate = await this.categoryModel.preload({
+      id,
+      ...updateDto,
+      parent: parentCategory,
     });
-    if (!result) {
-      throw new NotFoundException(`not found this id => ${id} on Product`);
+
+    if (!categoryToUpdate) {
+      throw new NotFoundException(`Category with id ${id} not found`);
     }
-    return successRes(result);
+
+    const updatedCategory = await this.categoryModel.save(categoryToUpdate);
+
+    return successRes(updatedCategory);
   }
 
   // ===================================== REMOVE =====================================
   async remove(id: number) {
-     const category = await this.categoryModel.findOne({
-       where: { id },
-       relations: ['children', 'products'],
-     });
+    const category = await this.categoryModel.findOne({
+      where: { id },
+      relations: ['children', 'products'],
+    });
 
-     if (!category) {
-       throw new NotFoundException(`Category with id ${id} not found`);
-     }
-     await this.categoryModel.remove(category);
+    if (!category) {
+      throw new NotFoundException(`Category with id ${id} not found`);
+    }
+    await this.categoryModel.remove(category);
 
-     return successRes({ message: 'Category deleted successfully' });
+    return successRes({ message: 'Category deleted successfully' });
   }
 }

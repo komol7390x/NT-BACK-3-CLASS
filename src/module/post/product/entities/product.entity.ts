@@ -4,7 +4,7 @@ import { BaseEntity } from 'src/interface/entity-interface';
 
 @Entity('product')
 export class Product extends BaseEntity {
-  @Column({ type: 'varchar', unique: true })
+  @Column({ type: 'varchar' })
   name: string;
 
   @Column({ type: 'decimal' })
